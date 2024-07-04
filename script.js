@@ -76,9 +76,26 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+function playGame() {
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+
+    if (humanScore > computerScore) {
+        console.log(`User beat computer ${humanScore}-${computerScore}.\n WINNER: USER`);
+    }
+
+    else if (humanScore < computerScore) {
+        console.log(`Computer beat user ${computerScore}-${humanScore}.\n WINNER: COMPUTER`);
+    }
+
+    else {
+        console.log(`Final score is ${computerScore}-${humanScore}. IT'S A DRAW!`)
+    }
+}
+
 // Main
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
