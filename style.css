@@ -15,11 +15,23 @@ body {
 }
 
 .message {
+    display: flex;
+    flex-direction: column;
     background-color: antiquewhite;
     padding: 10px;
     border-radius: 5px;
     font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
 
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons {

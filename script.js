@@ -4,9 +4,52 @@
 
 let humanScore = 0;
 let computerScore = 0;
+let roundNumber = 1;
 
 let getComputerChoice = () => Math.floor(Math.random() * 3);
 let getHumanChoice = () => prompt("Enter 'rock', 'paper' or 'scissors'");
+
+const buttonList = document.querySelector(".buttons");
+const message = document.querySelector(".message");
+
+buttonList.addEventListener("click", (event) => {
+    let target = event.target;
+
+    if (roundNumber < 5) {
+        switch(target.getAttribute("class")) {
+            case "rock":
+                playRound("rock", getComputerChoice());
+                break;
+    
+            case "paper":
+                playRound("paper", getComputerChoice());
+                break;
+    
+            case "scissors":
+                playRound("Scissors", getComputerChoice());
+                break;
+        }
+         roundNumber++;
+    }
+
+    else if (roundNumber == 5) {
+        switch(target.getAttribute("class")) {
+            case "rock":
+                playRound("rock", getComputerChoice());
+                break;
+    
+            case "paper":
+                playRound("paper", getComputerChoice());
+                break;
+    
+            case "scissors":
+                playRound("Scissors", getComputerChoice());
+                break;
+        }
+        message.innerHTML += `<div class="result">${calculateScore()}</div>`;
+        roundNumber++;
+    }
+});
 
 function playRound(humanChoice, computerChoice) {
     let humanChoiceProcessed = humanChoice[0].toUpperCase() + humanChoice.slice(1).toLowerCase();
@@ -46,54 +89,46 @@ function playRound(humanChoice, computerChoice) {
     }
 
     if (humanChoiceNumber === computerChoice) {
-        console.log(`Both chose ${humanChoiceProcessed}. IT'S A DRAW!`);
+        message.textContent = `Both chose ${humanChoiceProcessed}. IT'S A DRAW!`;
     }
 
     else {
         if (humanChoiceNumber > computerChoice) {
             if (humanChoiceNumber === 2 && computerChoice === 0) {
                 computerScore++;
-                console.log("You lose! Rock beats Scissors");
+                message.textContent = "You lose, Rock beats Scissors!";
             }
 
             else {
                 humanScore++;
-                console.log(`You win! ${humanChoiceProcessed} beats ${computerChoiceName}`)
+                message.textContent = `You win, ${humanChoiceProcessed} beats ${computerChoiceName}!`;
             }
         }
 
         else {
             if (humanChoiceNumber === 0 && computerChoice === 2) {
                 humanScore++;
-                console.log("You win! Rock beats Scissors");
+                message.textContent = "You win, Rock beats Scissors!";
             }
 
             else {
                 computerScore++;
-                console.log(`You lose! ${computerChoiceName} beats ${humanChoiceProcessed}`);
+                message.textContent = `You lose, ${computerChoiceName} beats ${humanChoiceProcessed}!`;
             }
         }
     }
 }
 
-function playGame() {
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-
+function calculateScore() {
     if (humanScore > computerScore) {
-        console.log(`User beat computer ${humanScore}-${computerScore}.\n WINNER: USER`);
+        return `User beat computer ${humanScore}-${computerScore}.<div>WINNER: USER</div>`;
     }
 
     else if (humanScore < computerScore) {
-        console.log(`Computer beat user ${computerScore}-${humanScore}.\n WINNER: COMPUTER`);
+        return `Computer beat user ${computerScore}-${humanScore}.<div>WINNER: COMPUTER</div>`;
     }
 
     else {
-        console.log(`Final score is ${computerScore}-${humanScore}. IT'S A DRAW!`)
+        return `Final score is ${computerScore}-${humanScore}.<div>IT'S A DRAW!</div>`;
     }
 }
-
-// Main
